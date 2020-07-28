@@ -104,6 +104,19 @@ Valve                        = create_class(GFB, 'Valve'                       ,
 Bypass_Valve                 = create_class(GFB, 'Bypass_Valve'                , GFB['Valve']                         , 'Electronically controlled bypass valve')
 Differential_Pressure_Sensor = create_class(GFB, 'Differential_Pressure_Sensor', BRICK['Differential_Pressure_Sensor'], 'Differential pressure sensor')
 
+# properties
+controls = create_property(GFB, 'controls', 'object', [Water_Temperature_Sensor], [Heat_Sensor], parent=BRICK['controls'])
+feedsWater = create_property(GFB, 'feedsWater', 'object', [BRICK['Equipment'], BRICK['Point']], [BRICK['Equipment'], BRICK['Point']], parent=BRICK['feeds'])
+feedsHeatedWater       = create_property(GFB, 'feedsHeatedWater'      , 'object', [], [], parent=feedsWater)
+feedsSupplyHeatedWater = create_property(GFB, 'feedsSupplyHeatedWater', 'object', [], [], parent=feedsHeatedWater)
+feedsReturnHeatedWater = create_property(GFB, 'feedsReturnHeatedWater', 'object', [], [], parent=feedsHeatedWater)
+feedsDistrictHeatedWater       = create_property(GFB, 'feedsDistrictHeatedWater'      , 'object', [], [], parent=feedsHeatedWater)
+feedsSupplyDistrictHeatedWater = create_property(GFB, 'feedsSupplyDistrictHeatedWater', 'object', [], [], parent=feedsDistrictHeatedWater)
+feedsReturnDistrictHeatedWater = create_property(GFB, 'feedsReturnDistrictHeatedWater', 'object', [], [], parent=feedsDistrictHeatedWater)
+feedsDomesticHeatedWater       = create_property(GFB, 'feedsDomesticHeatedWater'      , 'object', [], [], parent=feedsHeatedWater)
+feedsSupplyDomesticHeatedWater = create_property(GFB, 'feedsSupplyDomesticHeatedWater', 'object', [], [], parent=feedsDomesticHeatedWater)
+feedsReturnDomesticHeatedWater = create_property(GFB, 'feedsReturnDomesticHeatedWater', 'object', [], [], parent=feedsDomesticHeatedWater)
+
 ###############################################################################
 ######################################################################### store
 
