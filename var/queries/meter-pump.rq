@@ -1,0 +1,23 @@
+SELECT ?hm_name ?p_name
+WHERE {
+    # type definitions
+    ?hm  rdf:type/brick:subClassOf* gfb:Heat_Meter .
+    ?st  rdf:type/brick:subClassOf* gfb:Water_Temperature_Sensor .
+    ?rt  rdf:type/brick:subClassOf* gfb:Water_Temperature_Sensor .
+    ?rf  rdf:type/brick:subClassOf* gfb:Water_Flow_Sensor .
+    ?hx  rdf:type/brick:subClassOf* gfb:Heat_Exchanger .
+    ?p   rdf:type/brick:subClassOf* gfb:Pump .
+    
+    # relationships
+    ?st gfb:feedsSupplyDistrictHeatedWater+ ?hx .
+    ?hx gfb:feedsReturnDistrictHeatedWater+ ?rt .
+    ?hx gfb:feedsReturnDistrictHeatedWater+ ?rf .
+    ?st gfb:controls ?hm .
+    ?rt gfb:controls ?hm .
+    ?rf gfb:controls ?hm .
+    ?hx gfb:feedsSupplyHeatedWater+/gfb:feedsReturnHeatedWater* ?p .
+    
+    # labels
+    ?hm rdf:label ?hm_name .
+    ?p  rdf:label ?p_name .
+}

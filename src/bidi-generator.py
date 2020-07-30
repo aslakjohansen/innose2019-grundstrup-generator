@@ -41,7 +41,7 @@ async def process ():
     h_l1_radiator  = await model_ensure_instance(prefix, 'gfb:Radiator'                , escape('heated_loop1_radiator'))
     h_l2_sup_bvalve    = await model_ensure_instance(prefix, 'gfb:Bypass_Valve'            , escape('heated_loop2_supply_bypass_valve'))
     h_l2_sup_temp      = await model_ensure_instance(prefix, 'gfb:Water_Temperature_Sensor', escape('heated_loop2_supply_temp'))
-    h_l2_ret_pump      = await model_ensure_instance(prefix, 'gfb:Pump'                    , escape('heated_loop1_return_pump'))
+    h_l2_ret_pump      = await model_ensure_instance(prefix, 'gfb:Pump'                    , escape('heated_loop2_return_pump'))
     h_l2_ret_temp_pre  = await model_ensure_instance(prefix, 'gfb:Water_Temperature_Sensor', escape('heated_loop2_return_prebypass_temp'))
     h_l2_ret_temp_post = await model_ensure_instance(prefix, 'gfb:Water_Temperature_Sensor', escape('heated_loop2_return_postbypass_temp'))
     h_l2_radiator      = await model_ensure_instance(prefix, 'gfb:Radiator'                , escape('heated_loop2_radiator'))

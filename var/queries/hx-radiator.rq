@@ -1,0 +1,13 @@
+SELECT ?hx_name ?rad_name
+WHERE {
+    # type definitions
+    ?hx  rdf:type/brick:subClassOf* gfb:Heat_Exchanger .
+    ?rad rdf:type/brick:subClassOf* gfb:Radiator .
+    
+    # relationships
+    ?hx gfb:feedsSupplyHeatedWater+ ?rad .
+    
+    # labels
+    ?hx  rdf:label ?hx_name .
+    ?rad rdf:label ?rad_name .
+}
