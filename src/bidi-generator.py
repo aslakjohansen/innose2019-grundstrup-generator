@@ -86,6 +86,9 @@ async def process ():
     await model_ensure_relationship(tank_temp     , 'brick:isPointOf'           , tank)
     await model_ensure_relationship(tank          , 'gfb:feedsReturnHeatedWater', h_l3_ret_valve)
     await model_ensure_relationship(h_l3_ret_valve, 'gfb:feedsReturnHeatedWater', hx)
+    
+    # store resulting model
+    await rdf_store()
 
 def escape (value: str):
     value = value.replace(' ', '_space_')
