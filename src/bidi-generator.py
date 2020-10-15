@@ -6,6 +6,7 @@ import aiohttp
 import json
 
 namespaces = {}
+broker = "tcp://localhost:1883"
 
 ###############################################################################
 ####################################################################### helpers
@@ -18,6 +19,14 @@ def valid_python_version ():
 
 ###############################################################################
 #################################################################### processing
+
+async def attach_mqtt_dao (prefix, entity, topic):
+    topic = '/building1/'+topic
+    
+    MqttLiveData    = await model_ensure_instance(prefix, 'dao:MqttLiveData' , escape('data'+topic))
+    hasBroker       = await model_ensure_relationship(MqttLiveData , 'dao:hasBroker', '"%s"' % broker)
+    hasTopic        = await model_ensure_relationship(MqttLiveData , 'dao:hasTopic', '"%s"' % topic)
+    hasMqttLiveData = await model_ensure_relationship(entity , 'dao:hasMqttLiveData', MqttLiveData)
 
 async def process ():
     # instances
@@ -46,6 +55,17 @@ async def process ():
     h_l2_ret_temp_post = await model_ensure_instance(prefix, 'gfb:Water_Temperature_Sensor', escape('heated_loop2_return_postbypass_temp'))
     h_l2_radiator      = await model_ensure_instance(prefix, 'gfb:Radiator'                , escape('heated_loop2_radiator'))
     h_l3_ret_valve = await model_ensure_instance(prefix, 'gfb:Valve', escape('heated_loop3_return_valve'))
+    
+    # attach data sources
+    await attach_mqtt_dao(prefix, tank_temp  , 'tank/temp')
+    await attach_mqtt_dao(prefix, d_ret_flow , 'district/return/flow')
+    await attach_mqtt_dao(prefix, d_ret_temp , 'district/return/temp')
+    await attach_mqtt_dao(prefix, d_sup_temp , 'district/supply/temp')
+    await attach_mqtt_dao(prefix, d_ret_valve, 'district/return/valve/position')
+    await attach_mqtt_dao(prefix, d_ret_pres , 'district/return/pressure')
+    await attach_mqtt_dao(prefix, d_sup_pres , 'district/supply/pressure')
+    await attach_mqtt_dao(prefix, d_dif_pres , 'district/differential/pressure')
+    await attach_mqtt_dao(prefix, d_heat     , 'district/heat')
     
     # relations: district heated water
     await model_ensure_relationship(dh         , 'gfb:feedsSupplyDistrictHeatedWater', d_sup_temp)

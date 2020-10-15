@@ -1,0 +1,7 @@
+SELECT ?entity ?broker ?topic ?data
+WHERE {
+    ?entity dao:hasMqttLiveData ?data .
+    ?data   rdf:type dao:MqttLiveData .
+    ?data   dao:hasBroker ?broker .
+    ?data   dao:hasTopic  ?topic .
+}
