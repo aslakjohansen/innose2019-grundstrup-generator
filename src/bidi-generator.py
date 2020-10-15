@@ -66,6 +66,16 @@ async def process ():
     await attach_mqtt_dao(prefix, d_sup_pres , 'district/supply/pressure')
     await attach_mqtt_dao(prefix, d_dif_pres , 'district/differential/pressure')
     await attach_mqtt_dao(prefix, d_heat     , 'district/heat')
+    await attach_mqtt_dao(prefix, h_sup_temp , 'heated/supply/temp')
+    await attach_mqtt_dao(prefix, h_l1_sup_valve, 'heated/loop1/supply/valve/position') # TODO: should be attached to a sensor on the valve
+    await attach_mqtt_dao(prefix, h_l1_sup_temp , 'heated/loop1/supply/temp')
+    await attach_mqtt_dao(prefix, h_l1_sup_pump , 'heated/loop1/supply/pump/rpm') # TODO: should be attached to a sensor on the pump
+    await attach_mqtt_dao(prefix, h_l2_sup_bvalve, 'heated/loop2/supply/bypass-valve/position') # TODO: should be attached to a sensor on the bypass valve
+    await attach_mqtt_dao(prefix, h_l2_sup_temp , 'heated/loop2/supply/temp')
+    await attach_mqtt_dao(prefix, h_l2_ret_pump , 'heated/loop2/return/pump/rpm') # TODO: should be attached to a sensor on the pump
+    await attach_mqtt_dao(prefix, h_l2_ret_temp_pre , 'heated/loop2/return/temp/pre')
+    await attach_mqtt_dao(prefix, h_l2_ret_temp_post, 'heated/loop2/return/temp/post')
+    await attach_mqtt_dao(prefix, h_l3_ret_valve, 'heated/loop3/return/valve/position') # TODO: should be attached to a sensor on the valve
     
     # relations: district heated water
     await model_ensure_relationship(dh         , 'gfb:feedsSupplyDistrictHeatedWater', d_sup_temp)
